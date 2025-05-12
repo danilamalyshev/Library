@@ -1,4 +1,7 @@
 import csv
+
+from Bookstore.utils import generate_id
+
 file_path = '../ DATABASE/customer.csv'
 
 def insert_user(new_user):
@@ -35,17 +38,24 @@ def delete_user(delete_id=None, delete_username=None):
         writer.writeheader()
         writer.writerows(updated_customers)
 
+new_user_id = generate_id()
+new_user_username = input("Print username: ")
+new_user_name = input("Print name: ")
+new_user_surname = input("Print surname: ")
+new_user_email = input("Print email: ")
+new_user_phone = int(input("Print phone: "))
 
 new_user = {
-    'Id': '1',
-    'Username': 'Neer',
-    'Name': 'Peo',
-    'Surname': 'Kk',
-    'Email': 'petro@ecom',
-    'Phone': '09976'
+    'Id': new_user_id,
+    'Username': new_user_username,
+    'Name': new_user_name,
+    'Surname': new_user_surname,
+    'Email': new_user_email,
+    'Phone': new_user_phone
 }
+
+insert_user(new_user)
 
 # insert_user(new_user)
 # delete_user(delete_id='6')
 # delete_user(delete_username='Neer')
-
