@@ -39,11 +39,11 @@ def delete_user(delete_id=None, delete_username=None):
         writer.writerows(updated_customers)
 
 new_user_id = generate_id()
-new_user_username = input("Print username: ")
-new_user_name = input("Print name: ")
-new_user_surname = input("Print surname: ")
-new_user_email = input("Print email: ")
-new_user_phone = int(input("Print phone: "))
+new_user_username = str(input("Print username: "))
+new_user_name = str(input("Print name: "))
+new_user_surname = str(input("Print surname: "))
+new_user_email = str(input("Print email: "))
+new_user_phone = str(input("Print phone: "))
 
 new_user = {
     'Id': new_user_id,
