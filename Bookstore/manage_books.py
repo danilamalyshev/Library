@@ -1,7 +1,8 @@
 import csv
 from utils import generate_id
 
-book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']  # Добавил 'ID' как первый столбец
+book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
+
 
 def add_book(new_book):
     with open("../ DATABASE/ book.csv", "r", encoding="utf-8") as file:
@@ -24,8 +25,3 @@ new_book_modified = input("Enter new book modified: ")
 
 new_book_data = [new_id, new_book_title, new_book_author, new_book_year, new_book_count, new_book_modified]
 add_book(new_book_data)
-
-#
-# def delete_book(books):
-#     info = input("Enter a book title or ID to delete: ")
-#     books.remove(info)
