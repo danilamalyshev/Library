@@ -1,11 +1,7 @@
-import uuid
+import random
 
+def generate_id():
+    return ''.join(random.choices('0123456789', k=4))
 
-def get_ID():
-    user_id = uuid.uuid4()
-    return str(user_id)
-
-
-get_ID()
-
-print(get_ID())
+new_id = generate_id()
+print(new_id)
