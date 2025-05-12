@@ -44,7 +44,8 @@ new_user = {
     'Email': 'petro@ecom',
     'Phone': '09976'
 }
-insert_user(new_user)
 
-delete_user(delete_id='6')
-delete_user(delete_username='Neer')
+# insert_user(new_user)
+# delete_user(delete_id='6')
+# delete_user(delete_username='Neer')
+
