@@ -5,7 +5,7 @@ from Bookstore.utils import generate_id
 file_path = '../ DATABASE/customer.csv'
 
 def insert_user(new_user):
-    fieldnames = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone']
+    field_names = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone']
 
     with open(file_path, mode='r', encoding='utf-8') as file:
         reader = list(csv.DictReader(file))
@@ -13,30 +13,29 @@ def insert_user(new_user):
     reader.append(new_user)
 
     with open(file_path, mode='w', encoding='utf-8', newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer = csv.DictWriter(file, field_names=field_names)
         writer.writeheader()
         writer.writerows(reader)
 
 
 def delete_user(delete_id=None, delete_username=None):
-    fieldnames = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone']
+    headers = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone']
 
     with open(file_path, mode='r', encoding='utf-8') as file:
-        reader = csv.DictReader(file)
-        customers = list(reader)
+        users = list(csv.DictReader(file))
 
-    updated_customers = [
-        row for row in customers
-        if not (
-            (delete_id and row['Id'] == str(delete_id)) or
-            (delete_username and row['Username'] == delete_username)
-        )
-    ]
+    result = []
+    for user in users:
+        match_id = delete_id and user['Id'] == str(delete_id)
+        match_username = delete_username and user['Username'] == delete_username
+        if not (match_id or match_username):
+            result.append(user)
 
     with open(file_path, mode='w', encoding='utf-8', newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer = csv.DictWriter(file, fieldnames=headers)
         writer.writeheader()
-        writer.writerows(updated_customers)
+        writer.writerows(result)
+
 
 new_user_id = generate_id()
 new_user_username = str(input("Print username: "))
@@ -55,7 +54,5 @@ new_user = {
 }
 
 insert_user(new_user)
-
-# insert_user(new_user)
-# delete_user(delete_id='6')
+delete_user(delete_id='0088')
 # delete_user(delete_username='Neer')
