@@ -1,15 +1,11 @@
-def books_manager():
+def add_book():
     books = []
-    print("Press 1 to add a book or 0 to quit ")
-    while (True):
-
-        choice = input('1/0: ')
-        if choice == '1':
-            bookname = (input("Enter book name: "))
-            books.append(bookname)
-        elif choice == '0':
+    while True:
+        print("1 to escape")
+        a = input("Enter a book title: ")
+        books.append(a)
+        if a == "1":
+            books.pop()
             break
 
-
-books_manager()
-#fgfgfgfgfggffggf
+add_book()
