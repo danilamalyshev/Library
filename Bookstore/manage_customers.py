@@ -37,14 +37,14 @@ def delete_user(delete_id=None, delete_username=None):
 
 
 new_user = {
-    'Id': '6',
-    'Username': 'NewUser',
-    'Name': 'Petro',
-    'Surname': 'Kozak',
-    'Email': 'petro@example.com',
-    'Phone': '0999988776'
+    'Id': '1',
+    'Username': 'Neer',
+    'Name': 'Peo',
+    'Surname': 'Kk',
+    'Email': 'petro@ecom',
+    'Phone': '09976'
 }
 insert_user(new_user)
 
 delete_user(delete_id='6')
-#delete_user(delete_username='VanShevch')
+delete_user(delete_username='Neer')
