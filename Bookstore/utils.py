@@ -43,4 +43,5 @@ def generate_unique_user_id():
             return new_id
         attempt += 1
 
+
 unique_id = generate_unique_user_id()
