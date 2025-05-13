@@ -25,4 +25,4 @@ def generate_unique_user_id(new_id):
             return new_id
 
 unique_id = generate_unique_user_id(new_id)
-print("Унікальний ID:", unique_id)
+
