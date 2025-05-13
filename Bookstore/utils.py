@@ -1,12 +1,25 @@
-import random
 import csv
+import logging
+import random
 
-file_path_user = '../ DATABASE/customer.csv'
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    filename='app.log',
+    filemode='w'
+)
+
+file_path_user = '../DATABASE/customer.csv'
+
 
 def generate_id():
     return ''.join(random.choices('0123456789', k=4))
 
+
 new_id = '1091'
+
+
 def save_users_ids():
     existing_ids = set()
     try:
@@ -15,14 +28,23 @@ def save_users_ids():
             for row in reader:
                 existing_ids.add(row['Id'])
     except FileNotFoundError:
-        pass
+        logging.warning(f"File {file_path_user} not found.")
     return existing_ids
 
-def generate_unique_user_id(new_id):
+
+def generate_unique_user_id():
     existing_ids = save_users_ids()
-    while True:
+
+    attempt = 0
+
+    while attempt < 10000:  # Limit attempts to avoid infinite loop.
+        # You have 9999 IDs to choose from, based on requirements
+
+        new_id = generate_id()
+
         if new_id not in existing_ids:
             return new_id
+        attempt += 1
 
-unique_id = generate_unique_user_id(new_id)
 
+unique_id = generate_unique_user_id()
