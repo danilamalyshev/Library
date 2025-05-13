@@ -1,5 +1,6 @@
 import csv
-from Bookstore.utils import *
+
+from Bookstore.utils import generate_unique_user_id
 
 file_path = '../DATABASE/customer.csv'
 
@@ -37,7 +38,7 @@ def delete_user(delete_id=None, delete_username=None):
         writer.writerows(result)
 
 
-new_user_id = str(unique_id)
+new_user_id = generate_unique_user_id()
 new_user_username = input("Print username: ")
 new_user_name = input("Print name: ")
 new_user_surname = input("Print surname: ")
@@ -52,7 +53,6 @@ new_user = {
     'Email': new_user_email,
     'Phone': new_user_phone
 }
-
 
 # add_user(new_user)
 # delete_user(delete_id='0088')

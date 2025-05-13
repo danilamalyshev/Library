@@ -1,7 +1,9 @@
 import csv
-from utils import *
+
+from Bookstore.utils import generate_unique_user_id
 
 file_path = "../DATABASE/book.csv"
+
 
 def add_book(new_book):
     book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
@@ -14,6 +16,7 @@ def add_book(new_book):
         writer = csv.DictWriter(file, fieldnames=book_format)
         writer.writeheader()
         writer.writerows(reader)
+
 
 def delete_book(delete_bid=None, delete_bname=None):
     book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
@@ -35,8 +38,7 @@ def delete_book(delete_bid=None, delete_bname=None):
         writer.writerows(result)
 
 
-
-new_id = str(unique_id)
+new_id = generate_unique_user_id()
 new_book_title = input("Enter new book title: ")
 new_book_author = input("Enter new book author: ")
 new_book_year = input("Enter new book year: ")
