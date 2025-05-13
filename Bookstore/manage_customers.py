@@ -60,11 +60,12 @@ def check_username():
         existing_usernames = save_usernames()
 
         while True:
-            username = input("Введіть ім’я користувача: ")
+            username = input("Enter username: ")
             if username in existing_usernames:
-                print("Це ім’я вже зайняте. Спробуйте інше.")
+                print("This username is already registered, try again.")
             else:
                 return username
+
     return check_username_in_file()
 
 
@@ -83,7 +84,6 @@ new_user = {
     'Email': new_user_email,
     'Phone': new_user_phone
 }
-
 
 # add_user(new_user)
 # delete_user(delete_id='0088')
