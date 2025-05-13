@@ -1,5 +1,6 @@
 import csv
 from Bookstore.utils import *
+import logging
 
 file_path = '../DATABASE/customer.csv'
 
@@ -37,8 +38,32 @@ def delete_user(delete_id=None, delete_username=None):
         writer.writerows(result)
 
 
+def check_username():
+    def save_usernames():
+        existing_usernames = set()
+        try:
+            with open(file_path, mode='r', encoding='utf-8') as file:
+                reader = list(csv.DictReader(file))
+                for row in reader:
+                    existing_usernames.add(row['Username'])
+        except FileNotFoundError:
+            logging.warning(f"File {file_path} not found.")
+        return existing_usernames
+
+    def check_username_in_file():
+        existing_usernames = save_usernames()
+
+        while True:
+            username = input('Print username: ')
+            if username in existing_usernames:
+                print('This username already exists. Try another one.')
+            else:
+                return username
+    return check_username_in_file()
+
+
 new_user_id = str(unique_id)
-new_user_username = input("Print username: ")
+new_user_username = check_username()
 new_user_name = input("Print name: ")
 new_user_surname = input("Print surname: ")
 new_user_email = input("Print email: ")
@@ -53,7 +78,6 @@ new_user = {
     'Phone': new_user_phone
 }
 
-
 # add_user(new_user)
-# delete_user(delete_id='0088')
-# delete_user(delete_username='dfh')
+# delete_user(delete_id= '3249')
+# delete_user(delete_username= 'norm')
