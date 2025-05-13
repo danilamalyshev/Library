@@ -2,7 +2,6 @@ import csv
 import logging
 import random
 
-# Set up logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -45,4 +44,3 @@ def generate_unique_user_id():
         attempt += 1
 
 unique_id = generate_unique_user_id()
-print(unique_id)
