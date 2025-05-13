@@ -46,12 +46,12 @@ def id_repetition(id):
 
 
 
-new_user_id = generate_id()
+new_user_id = str(generate_id())
 new_user_username = input("Print username: ")
 new_user_name = input("Print name: ")
 new_user_surname = input("Print surname: ")
 new_user_email = input("Print email: ")
-new_user_phone = input("Print phone: ")
+new_user_phone = str(input("Print phone: "))
 
 new_user = {
     'Id': new_user_id,
