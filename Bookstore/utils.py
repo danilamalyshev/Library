@@ -6,7 +6,7 @@ file_path_user = '../ DATABASE/customer.csv'
 def generate_id():
     return ''.join(random.choices('0123456789', k=4))
 
-new_id = '1091'
+new_id = str(generate_id())
 def save_users_ids():
     existing_ids = set()
     try:
