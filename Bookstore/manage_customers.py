@@ -1,5 +1,7 @@
 import csv
-from Bookstore.utils import *
+import logging
+
+from Bookstore.utils import generate_unique_user_id
 
 logging.basicConfig(
     level=logging.INFO,
@@ -69,7 +71,7 @@ def check_username():
     return check_username_in_file()
 
 
-new_user_id = str(unique_id)
+new_user_id = generate_unique_user_id()
 new_user_username = check_username()
 new_user_name = input("Print name: ")
 new_user_surname = input("Print surname: ")
