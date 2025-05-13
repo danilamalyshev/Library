@@ -53,6 +53,6 @@ new_user = {
     'Phone': new_user_phone
 }
 
-add_user(new_user)
+# add_user(new_user)
 # delete_user(delete_id='0088')
-# delete_user(delete_username='Neer')
+# delete_user(delete_username='dfh')
