@@ -16,9 +16,6 @@ def generate_id():
     return ''.join(random.choices('0123456789', k=4))
 
 
-new_id = str(generate_id())
-
-
 def save_users_ids():
     existing_ids = set()
     try:
@@ -42,6 +39,3 @@ def generate_unique_user_id():
         if new_id not in existing_ids:
             return new_id
         attempt += 1
-
-
-unique_id = generate_unique_user_id()
