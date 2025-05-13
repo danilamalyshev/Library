@@ -1,5 +1,4 @@
 import csv
-
 from Bookstore.utils import generate_id
 
 file_path = '../ DATABASE/customer.csv'
@@ -36,13 +35,23 @@ def delete_user(delete_id=None, delete_username=None):
         writer.writeheader()
         writer.writerows(result)
 
+def id_repetition(id):
+    with open(file_path, mode='r', encoding='utf-8') as file:
+        users = list(csv.DictReader(file))
+    
+
+
+
+
+
+
 
 new_user_id = generate_id()
-new_user_username = str(input("Print username: "))
-new_user_name = str(input("Print name: "))
-new_user_surname = str(input("Print surname: "))
-new_user_email = str(input("Print email: "))
-new_user_phone = str(input("Print phone: "))
+new_user_username = input("Print username: ")
+new_user_name = input("Print name: ")
+new_user_surname = input("Print surname: ")
+new_user_email = input("Print email: ")
+new_user_phone = input("Print phone: ")
 
 new_user = {
     'Id': new_user_id,
@@ -53,6 +62,7 @@ new_user = {
     'Phone': new_user_phone
 }
 
-insert_user(new_user)
-delete_user(delete_id='0088')
+# insert_user(new_user)
+# delete_user(delete_id='0088')
 # delete_user(delete_username='Neer')
+
