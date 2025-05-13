@@ -1,19 +1,39 @@
 import csv
 from utils import generate_id
 
-book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
-
+file_path = "../DATABASE/book.csv"
 
 def add_book(new_book):
-    with open("../DATABASE/ book.csv", "r", encoding="utf-8") as file:
+    book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
+    with open(file_path, "r", encoding="utf-8") as file:
         reader = list(csv.DictReader(file))
 
     reader.append(new_book)
 
-    with open("../DATABASE/ book.csv", "w", newline="", encoding="utf-8") as file:
+    with open(file_path, "w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(file, fieldnames=book_format)
         writer.writeheader()
         writer.writerows(reader)
+
+def delete_book(delete_bid=None, delete_bname=None):
+    book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
+    headers = book_format
+
+    with open(file_path, mode='r', encoding='utf-8') as file:
+        books = list(csv.DictReader(file))
+
+    result = []
+    for book in books:
+        match_id = delete_bid and book['ID'] == str(delete_bid)
+        match_username = delete_bname and book['Title'] == delete_bname
+        if not (match_id or match_username):
+            result.append(book)
+
+    with open(file_path, mode='w', encoding='utf-8', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=headers)
+        writer.writeheader()
+        writer.writerows(result)
+
 
 
 new_id = str(generate_id())
@@ -33,3 +53,4 @@ new_book = {
 }
 
 add_book(new_book)
+# delete_book('norm')
