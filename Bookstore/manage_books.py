@@ -1,5 +1,5 @@
 import csv
-from utils import *
+from utils import generate_id
 
 file_path = "../DATABASE/book.csv"
 
@@ -36,7 +36,7 @@ def delete_book(delete_bid=None, delete_bname=None):
 
 
 
-new_id = str(unique_id)
+new_id = str(generate_id())
 new_book_title = input("Enter new book title: ")
 new_book_author = input("Enter new book author: ")
 new_book_year = input("Enter new book year: ")
@@ -52,6 +52,5 @@ new_book = {
     'Modified': new_book_modified
 }
 
-
-# add_book(new_book)
-delete_book(delete_bname = 'norm')
+add_book(new_book)
+# delete_book('norm')
