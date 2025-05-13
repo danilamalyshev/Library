@@ -3,6 +3,7 @@ from utils import generate_id
 
 file_path = "../DATABASE/book.csv"
 
+
 def add_book(new_book):
     book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
     with open(file_path, "r", encoding="utf-8") as file:
@@ -14,6 +15,7 @@ def add_book(new_book):
         writer = csv.DictWriter(file, fieldnames=book_format)
         writer.writeheader()
         writer.writerows(reader)
+
 
 def delete_book(delete_bid=None, delete_bname=None):
     book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
@@ -35,7 +37,6 @@ def delete_book(delete_bid=None, delete_bname=None):
         writer.writerows(result)
 
 
-
 new_id = str(generate_id())
 new_book_title = input("Enter new book title: ")
 new_book_author = input("Enter new book author: ")
@@ -53,4 +54,4 @@ new_book = {
 }
 
 add_book(new_book)
-# delete_book('norm')
+delete_book(delete_bname='norm')
