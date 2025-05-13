@@ -5,12 +5,12 @@ book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
 
 
 def add_book(new_book):
-    with open("../ DATABASE/ book.csv", "r", encoding="utf-8") as file:
+    with open("../DATABASE/ book.csv", "r", encoding="utf-8") as file:
         reader = list(csv.DictReader(file))
 
     reader.append(new_book)
 
-    with open("../ DATABASE/ book.csv", "w", newline="", encoding="utf-8") as file:
+    with open("../DATABASE/ book.csv", "w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(file, fieldnames=book_format)
         writer.writeheader()
         writer.writerows(reader)
