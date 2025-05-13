@@ -3,7 +3,7 @@ from Bookstore.utils import generate_id
 
 file_path = '../ DATABASE/customer.csv'
 
-def insert_user(new_user):
+def add_user(new_user):
     field_names = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone']
 
     with open(file_path, mode='r', encoding='utf-8') as file:
@@ -12,7 +12,7 @@ def insert_user(new_user):
     reader.append(new_user)
 
     with open(file_path, mode='w', encoding='utf-8', newline='') as file:
-        writer = csv.DictWriter(file, field_names=field_names)
+        writer = csv.DictWriter(file, fieldnames=field_names)
         writer.writeheader()
         writer.writerows(reader)
 
@@ -35,15 +35,6 @@ def delete_user(delete_id=None, delete_username=None):
         writer.writeheader()
         writer.writerows(result)
 
-def id_repetition(id):
-    with open(file_path, mode='r', encoding='utf-8') as file:
-        users = list(csv.DictReader(file))
-    
-
-
-
-
-
 
 
 new_user_id = str(generate_id())
@@ -62,7 +53,7 @@ new_user = {
     'Phone': new_user_phone
 }
 
-# insert_user(new_user)
+add_user(new_user)
 # delete_user(delete_id='0088')
 # delete_user(delete_username='Neer')
 
