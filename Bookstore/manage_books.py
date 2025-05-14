@@ -45,6 +45,7 @@ def add_book():
         writer.writerows(reader)
 
 
+
 def delete_book(delete_bid=None, delete_bname=None):
     book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
     headers = book_format
