@@ -15,35 +15,34 @@ def add_book():
     with open(file_path, 'r', encoding='utf-8') as file:
         reader = list(csv.DictReader(file))
 
-        for book in reader:
-            if book['Title'] == new_book_title:
-                new_book_modified = input("Enter modified value: ")
-                book['Count'] = str(int(book['Count']) + 1)
-                book['Modified'] = new_book_modified
-                book_exists = True
-                break
+    for book in reader:
+        if book['Title'] == new_book_title:
+            new_book_modified = input("Enter modified value: ")
+            book['Count'] = str(int(book['Count']) + 1)
+            book['Modified'] = new_book_modified
+            book_exists = True
+            break
 
-        if not book_exists:
-            new_book_author = input("Enter new book author: ")
-            new_book_year = input("Enter new book year: ")
-            new_book_count = input("Enter new book count: ")
-            new_book_modified = input("Enter new book modified: ")
+    if not book_exists:
+        new_book_author = input("Enter new book author: ")
+        new_book_year = input("Enter new book year: ")
+        new_book_count = input("Enter new book count: ")
+        new_book_modified = input("Enter new book modified: ")
 
-            new_book = {
-                'ID': generate_unique_user_id(),
-                'Title': new_book_title,
-                'Author': new_book_author,
-                'Year': new_book_year,
-                'Count': new_book_count,
-                'Modified': new_book_modified
-            }
-            reader.append(new_book)
+        new_book = {
+            'ID': generate_unique_user_id(),
+            'Title': new_book_title,
+            'Author': new_book_author,
+            'Year': new_book_year,
+            'Count': new_book_count,
+            'Modified': new_book_modified
+        }
+        reader.append(new_book)
 
-    with open(file_path, 'w', encoding='utf-8') as file:
+    with open(file_path, 'w', encoding='utf-8', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=book_format)
         writer.writeheader()
         writer.writerows(reader)
-
 
 
 def delete_book(delete_bid=None, delete_bname=None):
@@ -65,3 +64,5 @@ def delete_book(delete_bid=None, delete_bname=None):
         writer.writeheader()
         writer.writerows(result)
 
+
+add_book()
