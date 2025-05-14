@@ -11,7 +11,7 @@ logging.basicConfig(
 file_path = '../DATABASE/customer.csv'
 
 
-def add_user(generate_id):
+def add_user(generate_id, check_uname):
     field_names = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone','Password']
 
     with open(file_path, mode='r', encoding='utf-8') as file:
@@ -19,7 +19,7 @@ def add_user(generate_id):
 
     new_user = {
         'Id': generate_id,
-        'Username': check_username(),
+        'Username': check_uname,
         'Name': input("Print name: "),
         'Surname': input("Print surname: "),
         'Email': input("Print email: "),
@@ -52,30 +52,6 @@ def delete_user(delete_id=None, delete_username=None):
         writer.writeheader()
         writer.writerows(result)
 
-
-def check_username():
-    def save_usernames():
-        existing_usernames = set()
-        try:
-            with open(file_path, mode='r', encoding='utf-8') as file:
-                reader = list(csv.DictReader(file))
-                for row in reader:
-                    existing_usernames.add(row['Username'])
-        except FileNotFoundError:
-            logging.warning(f"File {file_path} not found.MC")
-        return existing_usernames
-
-    def check_username_in_file():
-        existing_usernames = save_usernames()
-
-        while True:
-            username = input("Enter username: ")
-            if username in existing_usernames:
-                print("This username is already registered, try again.")
-            else:
-                return username
-
-    return check_username_in_file()
 
 
 # delete_user(delete_id='0088')
