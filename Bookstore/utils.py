@@ -24,7 +24,7 @@ def save_users_ids():
             for row in reader:
                 existing_ids.add(row['Id'])
     except FileNotFoundError:
-        logging.warning(f"File {file_path_user} not found.")
+        logging.warning(f"File {file_path_user} not found.Ut")
     return existing_ids
 
 

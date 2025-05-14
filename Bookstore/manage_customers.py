@@ -14,7 +14,7 @@ file_path = '../DATABASE/customer.csv'
 
 
 def add_user(new_user):
-    field_names = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone']
+    field_names = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone','Password']
 
     with open(file_path, mode='r', encoding='utf-8') as file:
         reader = list(csv.DictReader(file))
@@ -55,7 +55,7 @@ def check_username():
                 for row in reader:
                     existing_usernames.add(row['Username'])
         except FileNotFoundError:
-            logging.warning(f"File {file_path} not found.")
+            logging.warning(f"File {file_path} not found.MC")
         return existing_usernames
 
     def check_username_in_file():
@@ -77,6 +77,7 @@ new_user_name = input("Print name: ")
 new_user_surname = input("Print surname: ")
 new_user_email = input("Print email: ")
 new_user_phone = str(input("Print phone: "))
+new_user_password = input("Print password: ")
 
 new_user = {
     'Id': new_user_id,
@@ -84,7 +85,8 @@ new_user = {
     'Name': new_user_name,
     'Surname': new_user_surname,
     'Email': new_user_email,
-    'Phone': new_user_phone
+    'Phone': new_user_phone,
+    'Password': new_user_password
 }
 
 # add_user(new_user)
