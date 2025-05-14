@@ -1,8 +1,6 @@
 import csv
 import logging
 
-from Bookstore.utils import generate_unique_user_id
-
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -13,12 +11,21 @@ logging.basicConfig(
 file_path = '../DATABASE/customer.csv'
 
 
-def add_user(new_user):
+def add_user(generate_id):
     field_names = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone','Password']
 
     with open(file_path, mode='r', encoding='utf-8') as file:
         reader = list(csv.DictReader(file))
 
+    new_user = {
+        'Id': generate_id,
+        'Username': check_username(),
+        'Name': input("Print name: "),
+        'Surname': input("Print surname: "),
+        'Email': input("Print email: "),
+        'Phone': str(input("Print phone: ")),
+        'Password': input("Print password: ")
+    }
     reader.append(new_user)
 
     with open(file_path, mode='w', encoding='utf-8', newline='') as file:
@@ -71,24 +78,5 @@ def check_username():
     return check_username_in_file()
 
 
-new_user_id = generate_unique_user_id()
-new_user_username = check_username()
-new_user_name = input("Print name: ")
-new_user_surname = input("Print surname: ")
-new_user_email = input("Print email: ")
-new_user_phone = str(input("Print phone: "))
-new_user_password = input("Print password: ")
-
-new_user = {
-    'Id': new_user_id,
-    'Username': new_user_username,
-    'Name': new_user_name,
-    'Surname': new_user_surname,
-    'Email': new_user_email,
-    'Phone': new_user_phone,
-    'Password': new_user_password
-}
-
-# add_user(new_user)
 # delete_user(delete_id='0088')
 # delete_user(delete_username='dfh')
