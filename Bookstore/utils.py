@@ -66,18 +66,30 @@ def check_username():
     return check_username_in_file()
 
 def user_login():
-    username = input('Print username: ')
-    password = input('Print password: ')
+    while True:
+        print('If you want to leave, type "exit"')
+        username = input('Enter username: ')
+        if username.lower() == 'exit':
+            break
 
-    try:
         with open(file_path_user, mode='r', encoding='utf-8') as file:
             reader = csv.DictReader(file)
+            user_found = False
+
             for row in reader:
-                if row['Username'] == username and row['Password'] == password:
-                    print(f'Welcome, {row['Name']} {row['Surname']}!')
-                    return row
-            print('Wrong username or password!.')
-    except FileNotFoundError:
-        logging.warning(f"File {file_path_user} not found.Ut")
+                if row['Username'] == username:
+                    user_found = True
+                    password = input('Enter password: ')
+                    if password == 'exit':
+                        return
+                    if password == row['Password']:
+                        print('Welcome ' + row['Username'])
+                        return
+                    else:
+                        print('Wrong password')
+                        break
 
+            if not user_found:
+                print('Invalid username')
 
+user_login()
