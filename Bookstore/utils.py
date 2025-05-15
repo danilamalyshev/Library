@@ -67,12 +67,18 @@ def check_username():
 
 
 def user_login():
-    username = input("Enter username: ")
-    password = input("Enter password: ")
-    existing_usernames = set()
-    with open(file_path_user, mode='r', encoding='utf-8') as file:
-        reader = csv.DictReader(file)
+    username = input("Введіть ім’я користувача: ")
+    password = input("Введіть пароль: ")
 
-
+    try:
+        with open(file_path_user, mode='r', encoding='utf-8') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                if row['Username'] == username and row['Password'] == password:
+                    print(f"\n✅ Welcome, {row['Name']} {row['Surname']}!")
+                    return row
+            print("\n❌ Wrong username or password!.")
+    except FileNotFoundError:
+        logging.warning(f"File {file_path_user} not found.Ut")
 
 user_login()
