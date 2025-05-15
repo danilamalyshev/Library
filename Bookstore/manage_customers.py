@@ -53,6 +53,6 @@ def delete_user(delete_id=None, delete_username=None):
         writer.writerows(result)
 
 
-
+add_user(generate_id='0088', check_uname='dfh')
 # delete_user(delete_id='0088')
 # delete_user(delete_username='dfh')
