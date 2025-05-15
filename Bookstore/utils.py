@@ -91,5 +91,3 @@ def user_login():
 
             if not user_found:
                 print('Invalid username')
-
-user_login()

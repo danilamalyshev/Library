@@ -6,7 +6,6 @@ file_path = "../DATABASE/book.csv"
 
 
 def add_book():
-
     book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
     book_exists = False
 
@@ -45,7 +44,6 @@ def add_book():
         writer.writerows(reader)
 
 
-
 def delete_book(delete_bid=None, delete_bname=None):
     book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
     headers = book_format
@@ -66,4 +64,66 @@ def delete_book(delete_bid=None, delete_bname=None):
         writer.writerows(result)
 
 
-add_book()
+def buy_book():
+    book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
+    headers = book_format
+
+    with open(file_path, mode='r', encoding='utf-8') as file:
+        reader = list(csv.DictReader(file))
+
+    buying_process = True
+
+    while buying_process:
+        book_name = input("Enter name of the book you want to buy: ")
+        book_found = False
+        purchase_successful = False
+
+        for book in reader:
+            if book['Title'] == book_name:
+                book_found = True
+
+                while True:
+                    try:
+                        count_of_books_to_buy = int(input("Enter number of books to buy: "))
+                        if count_of_books_to_buy <= 0:
+                            print("Please enter a positive number.\n")
+                            continue
+                        break
+                    except ValueError:
+                        print("Please enter a valid number.\n")
+
+                count_of_books_in_stock = int(book['Count'])
+
+                if count_of_books_to_buy > count_of_books_in_stock:
+                    print("There are only " + book['Count'] + " books in stock.\n")
+                    break
+
+                elif count_of_books_to_buy == count_of_books_in_stock:
+                    delete_book(delete_bname=book['Title'])
+                    print("Thank you for buying book " + book['Title'] + " in amount of " +
+                          str(count_of_books_to_buy) + " books.")
+                    reader.remove(book)
+                    purchase_successful = True
+                    break
+
+                else:
+                    book['Count'] = str(count_of_books_in_stock - count_of_books_to_buy)
+                    print("Thank you for buying book " + book['Title'] + " in amount of " +
+                          str(count_of_books_to_buy) + " books.")
+                    purchase_successful = True
+                    break
+
+        if not book_found:
+            print("Book not found. Try again.\n")
+            continue
+
+        if purchase_successful:
+            with open(file_path, mode='w', encoding='utf-8', newline='') as file:
+                writer = csv.DictWriter(file, fieldnames=headers)
+                writer.writeheader()
+                writer.writerows(reader)
+            buying_process = False
+
+
+
+buy_book()
