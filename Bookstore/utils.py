@@ -65,3 +65,14 @@ def check_username():
 
     return check_username_in_file()
 
+
+def user_login():
+    username = input("Enter username: ")
+    password = input("Enter password: ")
+    existing_usernames = set()
+    with open(file_path_user, mode='r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+
+
+
+user_login()
