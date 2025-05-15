@@ -1,2 +1,0 @@
-from kivy import *
-
