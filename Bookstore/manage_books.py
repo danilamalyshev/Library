@@ -74,9 +74,9 @@ def buy_book():
     buying_process = True
 
     while buying_process:
-        book_name = input("Enter name of the book you want to buy: ")
         book_found = False
         purchase_successful = False
+        book_name = input("Enter name of the book you want to buy: ")
 
         for book in reader:
             if book['Title'] == book_name:
@@ -96,6 +96,13 @@ def buy_book():
 
                 if count_of_books_to_buy > count_of_books_in_stock:
                     print("There are only " + book['Count'] + " books in stock.\n")
+                    while count_of_books_to_buy > count_of_books_in_stock:
+                        count_of_books_to_buy = int(input("Enter number of books to buy: "))
+                    purchase_successful = True
+                    book['Count'] = str(count_of_books_in_stock - count_of_books_to_buy)
+                    print("Thank you for buying book " + book['Title'] + " in amount of " +
+                          str(count_of_books_to_buy) + " books.")
+
                     break
 
                 elif count_of_books_to_buy == count_of_books_in_stock:
@@ -123,8 +130,6 @@ def buy_book():
                 writer.writeheader()
                 writer.writerows(reader)
             buying_process = False
-
-
 
 
 buy_book()
