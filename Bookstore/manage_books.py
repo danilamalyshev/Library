@@ -135,5 +135,3 @@ def buy_book():
                 writer.writeheader()
                 writer.writerows(reader)
             buying_process = False
-add_book()
-buy_book()
