@@ -1,7 +1,7 @@
 import csv
+import os
 import logging
-from utils import generate_id
-from utils import check_username
+from utils import *
 
 logging.basicConfig(
     level=logging.INFO,
@@ -18,13 +18,13 @@ def add_user():
 
 
     new_user = {
-        'Id': generate_id(),
+        'Id': str(generate_id()),
         'Username': check_username(),
-        'Name': input("Print name: "),
-        'Surname': input("Print surname: "),
-        'Email': input("Print email: "),
-        'Phone': str(input("Print phone: ")),
-        'Password': input("Print password: "),
+        'Name': input('Print name: '),
+        'Surname': input('Print surname: '),
+        'Email': input('Print email: '),
+        'Phone': str(input('Print phone: ')),
+        'Password': input('Print password: '),
         'Administrator': 'No'
     }
     reader.append(new_user)
@@ -34,6 +34,10 @@ def add_user():
         writer.writeheader()
         writer.writerows(reader)
 
+    file_path = os.path.join('../DATABASE', f"{new_user['Id']}.txt")
+
+    with open(file_path, mode='w', encoding='utf-8') as file:
+        print('File created')
 
 def delete_user(delete_id, delete_username):
     headers = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone','Password','Administrator']
@@ -65,18 +69,18 @@ def change_user_data(user_data):
 
     for user in users:
         if user['Id'] == search_value or user['Username'] == search_value:
-            print(f"User found: {user}")
-            print("Select fields to update (enter numbers separated by commas or enter 0 to update all):")
+            print(f'User found: {user}')
+            print('Select fields to update (enter numbers separated by commas or enter 0 to update all):')
             options = [
-                "0 - Update all fields",
-                "1 - Id",
-                "2 - Username",
-                "3 - Name",
-                "4 - Surname",
-                "5 - Email",
-                "6 - Phone",
-                "7 - Password",
-                "8 - Administrator"
+                '0 - Update all',
+                '1 - Id',
+                '2 - Username',
+                '3 - Name',
+                '4 - Surname',
+                '5 - Email',
+                '6 - Phone',
+                '7 - Password',
+                '8 - Administrator'
             ]
             for option in options:
                 print(option)
@@ -92,7 +96,7 @@ def change_user_data(user_data):
                 user['Email'] = input('Enter new email: ')
                 user['Phone'] = input('Enter new phone: ')
                 user['Password'] = input('Enter new password: ')
-                user['Administrator'] = input('Administrator (True/False): ')
+                user['Administrator'] = input('Administrator (Yes/No): ')
             else:
                 if '1' in selected:
                     user['Id'] = generate_id()
@@ -109,14 +113,14 @@ def change_user_data(user_data):
                 if '7' in selected:
                     user['Password'] = input('Enter new password: ')
                 if '8' in selected:
-                    user['Administrator'] = input('Administrator (True/False): ')
+                    user['Administrator'] = input('Administrator (Yes/No): ')
 
             user_found = True
 
         updated_users.append(user)
 
     if not user_found:
-        print("User not found")
+        print('User not found')
         return
 
     with open('../DATABASE/customer.csv', mode='w', encoding='utf-8', newline='') as file:
@@ -125,9 +129,10 @@ def change_user_data(user_data):
         writer.writerows(updated_users)
 
 
+
+# add_user()
 # del_id = '1241'
 # del_uname = 'dfh'
-# add_user()
 # delete_user(delete_id=del_id)
 # delete_user(delete_username=del_uname)
-# change_user_data(user_data='4657')
+change_user_data(user_data='6894')
