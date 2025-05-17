@@ -1,6 +1,2 @@
-Id,Username,Name,Surname,Email,Phone,Password
-5279,MKQ,Mykola,Khalus,mikolajkhalus@gmail.com,457548548,123123123
-0791,sdth,h,fh,fh,fh,fh
-3135,fdg,dgf,dg,dg,dg,dg
-3455,dfghd,dhfg,fdghf,fjgfdj,fgjdf,fgjfj
-0088,dfh,Danik,Malyshev,danikmalyshev@gmail.com,795771773,d123_123
+Id,Username,Name,Surname,Email,Phone,Password,Administrator
+4657,MiK,Mykola,Khalus,xyz@gmail.com,123456789,123123123,Yes

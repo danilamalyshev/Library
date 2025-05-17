@@ -64,6 +64,17 @@ def check_username():
                 return username
 
     return check_username_in_file()
+def save_user_status():
+        existing_user_status = set()
+        try:
+            with open(file_path_user, mode='r', encoding='utf-8') as file:
+                reader = list(csv.DictReader(file))
+                for row in reader:
+                    existing_user_status.add(row['Administrator'])
+        except FileNotFoundError:
+            logging.warning(f"File {file_path_user} not found.MC")
+        return existing_user_status
+
 
 def user_login():
     while True:
@@ -83,11 +94,20 @@ def user_login():
                     if password == 'exit':
                         return
                     if password == row['Password']:
-                        print('Welcome ' + row['Username'])
-                        return
+                        if row['Administrator'] == 'Yes':
+                            admin_login = input('Login as admin?(yes/no): ')
+                            if admin_login == 'yes':
+                                print('Welcome admin ' + row['Username'])
+                                return
+                            else:
+                                print('Welcome ' + row['Username'])
+                                return
                     else:
                         print('Wrong password')
                         break
 
             if not user_found:
                 print('Invalid username')
+
+
+user_login()
