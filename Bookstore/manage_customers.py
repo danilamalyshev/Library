@@ -1,7 +1,6 @@
 import csv
 import logging
-from utils import generate_unique_user_id
-from utils import check_username
+from utils import generate_id
 
 logging.basicConfig(
     level=logging.INFO,
@@ -10,15 +9,39 @@ logging.basicConfig(
     filemode='w'
 )
 
-def add_user(generate_id, check_uname):
+def add_user(generate_id):
     field_names = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone','Password','Administrator']
 
     with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
         reader = list(csv.DictReader(file))
 
+    def check_username():
+        def save_usernames():
+            existing_usernames = set()
+            try:
+                with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
+                    reader = list(csv.DictReader(file))
+                    for row in reader:
+                        existing_usernames.add(row['Username'])
+            except FileNotFoundError:
+                logging.warning(f"File {'../DATABASE/customer.csv'} not found.MC")
+            return existing_usernames
+
+        def check_username_in_file():
+            existing_usernames = save_usernames()
+
+            while True:
+                username = input("Enter username: ")
+                if username in existing_usernames:
+                    print("This username is already registered, try again.")
+                else:
+                    return username
+
+        return check_username_in_file()
+
     new_user = {
         'Id': generate_id,
-        'Username': check_uname,
+        'Username': check_username(),
         'Name': input("Print name: "),
         'Surname': input("Print surname: "),
         'Email': input("Print email: "),
@@ -34,7 +57,7 @@ def add_user(generate_id, check_uname):
         writer.writerows(reader)
 
 
-def delete_user(delete_id=None, delete_username=None):
+def delete_user(delete_id, delete_username):
     headers = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone']
 
     with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
@@ -54,6 +77,6 @@ def delete_user(delete_id=None, delete_username=None):
 
 del_id = '1241'
 del_uname = 'dfh'
-add_user(generate_id=generate_unique_user_id(), check_uname=check_username())
+add_user(generate_id=generate_id())
 # delete_user(delete_id=del_id)
 # delete_user(delete_username=del_uname)
