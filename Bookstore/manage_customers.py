@@ -129,7 +129,6 @@ def change_user_data(user_data):
         writer.writerows(updated_users)
 
 
-
 # add_user()
 # del_id = '1241'
 # del_uname = 'dfh'
