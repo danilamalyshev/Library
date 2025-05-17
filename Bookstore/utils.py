@@ -79,4 +79,23 @@ def user_login():
                 print('Invalid username')
 
 
-user_login()
+def check_username():
+    def save_usernames():
+        existing_usernames = set()
+        try:
+            with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
+                reader = list(csv.DictReader(file))
+                for row in reader:
+                    existing_usernames.add(row['Username'])
+        except FileNotFoundError:
+            logging.warning(f"File {'../DATABASE/customer.csv'} not found.MC")
+        return existing_usernames
+    def check_username_in_file():
+        existing_usernames = save_usernames()
+        while True:
+            username = input("Enter username: ")
+            if username in existing_usernames:
+                print("This username is already registered, try again.")
+            else:
+                return username
+    return check_username_in_file()

@@ -1,6 +1,7 @@
 import csv
 import logging
 from utils import generate_id
+from utils import check_username
 
 logging.basicConfig(
     level=logging.INFO,
@@ -9,38 +10,15 @@ logging.basicConfig(
     filemode='w'
 )
 
-def add_user(generate_id):
+def add_user():
     field_names = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone','Password','Administrator']
 
     with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
         reader = list(csv.DictReader(file))
 
-    def check_username():
-        def save_usernames():
-            existing_usernames = set()
-            try:
-                with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
-                    reader = list(csv.DictReader(file))
-                    for row in reader:
-                        existing_usernames.add(row['Username'])
-            except FileNotFoundError:
-                logging.warning(f"File {'../DATABASE/customer.csv'} not found.MC")
-            return existing_usernames
-
-        def check_username_in_file():
-            existing_usernames = save_usernames()
-
-            while True:
-                username = input("Enter username: ")
-                if username in existing_usernames:
-                    print("This username is already registered, try again.")
-                else:
-                    return username
-
-        return check_username_in_file()
 
     new_user = {
-        'Id': generate_id,
+        'Id': generate_id(),
         'Username': check_username(),
         'Name': input("Print name: "),
         'Surname': input("Print surname: "),
@@ -58,7 +36,7 @@ def add_user(generate_id):
 
 
 def delete_user(delete_id, delete_username):
-    headers = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone']
+    headers = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone','Password','Administrator']
 
     with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
         users = list(csv.DictReader(file))
@@ -75,8 +53,81 @@ def delete_user(delete_id, delete_username):
         writer.writeheader()
         writer.writerows(result)
 
-del_id = '1241'
-del_uname = 'dfh'
-add_user(generate_id=generate_id())
+def change_user_data(user_data):
+    fieldnames = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone', 'Password', 'Administrator']
+
+    updated_users = []
+    search_value = user_data.strip()
+    with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
+        users = list(csv.DictReader(file))
+
+    user_found = False
+
+    for user in users:
+        if user['Id'] == search_value or user['Username'] == search_value:
+            print(f"User found: {user}")
+            print("Select fields to update (enter numbers separated by commas or enter 0 to update all):")
+            options = [
+                "0 - Update all fields",
+                "1 - Id",
+                "2 - Username",
+                "3 - Name",
+                "4 - Surname",
+                "5 - Email",
+                "6 - Phone",
+                "7 - Password",
+                "8 - Administrator"
+            ]
+            for option in options:
+                print(option)
+
+            selected = input("Your selection: ").split(',')
+            selected = [s.strip() for s in selected]
+
+            if '0' in selected:
+                user['Id'] = generate_id()
+                user['Username'] = check_username()
+                user['Name'] = input('Enter new name: ')
+                user['Surname'] = input('Enter new surname: ')
+                user['Email'] = input('Enter new email: ')
+                user['Phone'] = input('Enter new phone: ')
+                user['Password'] = input('Enter new password: ')
+                user['Administrator'] = input('Administrator (True/False): ')
+            else:
+                if '1' in selected:
+                    user['Id'] = generate_id()
+                if '2' in selected:
+                    user['Username'] = check_username()
+                if '3' in selected:
+                    user['Name'] = input('Enter new name: ')
+                if '4' in selected:
+                    user['Surname'] = input('Enter new surname: ')
+                if '5' in selected:
+                    user['Email'] = input('Enter new email: ')
+                if '6' in selected:
+                    user['Phone'] = input('Enter new phone: ')
+                if '7' in selected:
+                    user['Password'] = input('Enter new password: ')
+                if '8' in selected:
+                    user['Administrator'] = input('Administrator (True/False): ')
+
+            user_found = True
+
+        updated_users.append(user)
+
+    if not user_found:
+        print("User not found")
+        return
+
+    with open('../DATABASE/customer.csv', mode='w', encoding='utf-8', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(updated_users)
+
+
+# del_id = '1241'
+# del_uname = 'dfh'
+# add_user()
 # delete_user(delete_id=del_id)
 # delete_user(delete_username=del_uname)
+# change_user_data(user_data='4657')
