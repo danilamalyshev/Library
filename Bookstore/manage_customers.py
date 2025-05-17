@@ -1,7 +1,10 @@
 import csv
 import os
 import logging
-from utils import *
+from utils import generate_id
+from utils import check_username
+from Bookstore.manage_books import delete_book
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -10,12 +13,13 @@ logging.basicConfig(
     filemode='w'
 )
 
+file_path_book = "../DATABASE/book.csv"
+
 def add_user():
-    field_names = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone','Password','Administrator']
+    field_names = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone', 'Password', 'Administrator']
 
     with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
         reader = list(csv.DictReader(file))
-
 
     new_user = {
         'Id': str(generate_id()),
@@ -39,8 +43,9 @@ def add_user():
     with open(file_path, mode='w', encoding='utf-8') as file:
         print('File created')
 
+
 def delete_user(delete_id, delete_username):
-    headers = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone','Password','Administrator']
+    headers = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone', 'Password', 'Administrator']
 
     with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
         users = list(csv.DictReader(file))
@@ -56,6 +61,7 @@ def delete_user(delete_id, delete_username):
         writer = csv.DictWriter(file, fieldnames=headers)
         writer.writeheader()
         writer.writerows(result)
+
 
 def change_user_data(user_data):
     fieldnames = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone', 'Password', 'Administrator']
@@ -129,9 +135,87 @@ def change_user_data(user_data):
         writer.writerows(updated_users)
 
 
+def buy_book():
+
+    book_format = ['ID', 'Title', 'Author', 'Year', 'Count', 'Modified']
+    headers = book_format
+
+
+    with open(file_path_book, mode='r', encoding='utf-8') as file:
+        reader = list(csv.DictReader(file))
+
+    buying_process = True
+
+    while buying_process:
+        book_found = False
+        purchase_successful = False
+        book_name = input("Enter name of the book you want to buy: ")
+
+        for book in reader:
+            if book['Title'] == book_name:
+                book_found = True
+
+                while True:
+                    try:
+                        count_of_books_to_buy = int(input("Enter number of books to buy: "))
+                        if count_of_books_to_buy <= 0:
+                            print("Please enter a positive number.\n")
+                            continue
+                        break
+                    except ValueError:
+                        print("Please enter a valid number.")
+                        logging.warning("ValueError: User entered invalid number input.")
+
+                count_of_books_in_stock = int(book['Count'])
+
+                if count_of_books_to_buy > count_of_books_in_stock:
+                    print("There are only " + book['Count'] + " books in stock.\n")
+
+                    while True:
+                        try:
+                            count_of_books_to_buy = int(input("Enter number of books to buy: "))
+                            if count_of_books_to_buy <= 0:
+                                print("Please enter a positive number.")
+                                continue
+                            if count_of_books_to_buy > count_of_books_in_stock:
+                                print("There are only " + book['Count'] + " books in stock.")
+                                continue
+                            break
+                        except ValueError:
+                            print("Please enter a valid number.")
+                            logging.warning("ValueError: User entered invalid number input.")
+
+                if count_of_books_to_buy == count_of_books_in_stock:
+                    delete_book(delete_bname=book['Title'])
+                    print("Thank you for buying book " + book['Title'] + " in amount of " +
+                          str(count_of_books_to_buy) + " books.")
+                    reader.remove(book)
+                    purchase_successful = True
+                    break
+
+                else:
+                    book['Count'] = str(count_of_books_in_stock - count_of_books_to_buy)
+                    print("Thank you for buying book " + book['Title'] + " in amount of " +
+                          str(count_of_books_to_buy) + " books.")
+                    purchase_successful = True
+                    break
+
+        if not book_found:
+            print("Book not found. Try again.\n")
+            continue
+
+        if purchase_successful:
+            with open(file_path_book, mode='w', encoding='utf-8', newline='') as file:
+                writer = csv.DictWriter(file, fieldnames=headers)
+                writer.writeheader()
+                writer.writerows(reader)
+            buying_process = False
+
+
+buy_book()
 # add_user()
 # del_id = '1241'
 # del_uname = 'dfh'
 # delete_user(delete_id=del_id)
 # delete_user(delete_username=del_uname)
-change_user_data(user_data='6894')
+# change_user_data(user_data='6894')
