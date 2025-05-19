@@ -211,8 +211,44 @@ def buy_book():
                 writer.writerows(reader)
             buying_process = False
 
+def user_login():
+    while True:
+        print('If you want to leave, type "exit"')
+        username = input('Enter username: ')
+        if username.lower() == 'exit':
+            break
 
-buy_book()
+        with open('../Bookstore/customer.csv', mode='r', encoding='utf-8') as file:
+            reader = csv.DictReader(file)
+            user_found = False
+
+            for row in reader:
+                if row['Username'] == username:
+                    user_found = True
+                    password = input('Enter password: ')
+                    if password == 'exit':
+                        return
+                    if password == row['Password']:
+                        if row['Administrator'] == 'Yes':
+                            admin_login = input('Login as admin?(yes/no): ')
+                            if admin_login == 'yes':
+                                print('Welcome admin ' + row['Username'])
+                                print('You can manage customers and books:')
+                                print('Add user')
+                                return
+                            else:
+                                print('Welcome ' + row['Username'])
+                                return
+                    else:
+                        print('Wrong password')
+                        break
+
+            if not user_found:
+                print('Invalid username')
+
+
+
+# buy_book()
 # add_user()
 # del_id = '1241'
 # del_uname = 'dfh'
