@@ -9,16 +9,16 @@ from Bookstore.manage_books import delete_book
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
-    filename='app.log',
+    filename='DATABASE/app.log',
     filemode='w'
 )
 
-file_path_book = "../DATABASE/book.csv"
+file_path_book = "DATABASE/book.csv"
 
 def add_user():
     field_names = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone', 'Password', 'Administrator']
 
-    with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
+    with open('Bookstore/customer.csv', mode='r', encoding='utf-8') as file:
         reader = list(csv.DictReader(file))
 
     new_user = {
@@ -33,12 +33,12 @@ def add_user():
     }
     reader.append(new_user)
 
-    with open('../DATABASE/customer.csv', mode='w', encoding='utf-8', newline='') as file:
+    with open('Bookstore/customer.csv', mode='w', encoding='utf-8', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=field_names)
         writer.writeheader()
         writer.writerows(reader)
 
-    file_path = os.path.join('../DATABASE', f"{new_user['Id']}.txt")
+    file_path = os.path.join('DATABASE', f"{new_user['Id']}.txt")
 
     with open(file_path, mode='w', encoding='utf-8') as file:
         print('File created')
@@ -47,7 +47,7 @@ def add_user():
 def delete_user(delete_id, delete_username):
     headers = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone', 'Password', 'Administrator']
 
-    with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
+    with open('Bookstore/customer.csv', mode='r', encoding='utf-8') as file:
         users = list(csv.DictReader(file))
 
     result = []
@@ -57,7 +57,7 @@ def delete_user(delete_id, delete_username):
         if not (match_id or match_username):
             result.append(user)
 
-    with open('../DATABASE/customer.csv', mode='w', encoding='utf-8', newline='') as file:
+    with open('Bookstore/customer.csv', mode='w', encoding='utf-8', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=headers)
         writer.writeheader()
         writer.writerows(result)
@@ -68,7 +68,7 @@ def change_user_data(user_data):
 
     updated_users = []
     search_value = user_data.strip()
-    with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
+    with open('Bookstore/customer.csv', mode='r', encoding='utf-8') as file:
         users = list(csv.DictReader(file))
 
     user_found = False
@@ -129,7 +129,7 @@ def change_user_data(user_data):
         print('User not found')
         return
 
-    with open('../DATABASE/customer.csv', mode='w', encoding='utf-8', newline='') as file:
+    with open('Bookstore/customer.csv', mode='w', encoding='utf-8', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(updated_users)

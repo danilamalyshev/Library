@@ -1,8 +1,8 @@
 from tkinter import *
 from PIL import Image, ImageTk
-from decorators import style_button
+# from decorators import style_button
 
-@style_button
+# @style_button
 def create_button(*args, **kwargs):
     return Button(*args, **kwargs)
 

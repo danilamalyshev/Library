@@ -5,11 +5,11 @@ import random
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
-    filename='app.log',
+    filename='../DATABASE/app.log',
     filemode='w'
 )
 
-file_path_user = '../DATABASE/customer.csv'
+file_path_user = 'customer.csv'
 
 
 def generate_id():
@@ -85,7 +85,7 @@ def check_username():
     def save_usernames():
         existing_usernames = set()
         try:
-            with open('../DATABASE/customer.csv', mode='r', encoding='utf-8') as file:
+            with open('customer.csv', mode='r', encoding='utf-8') as file:
                 reader = list(csv.DictReader(file))
                 for row in reader:
                     existing_usernames.add(row['Username'])
