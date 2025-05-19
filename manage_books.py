@@ -1,5 +1,5 @@
 import csv
-from utils import generate_unique_user_id
+from utils import *
 
 file_path = "Bookstore/book.csv"
 
@@ -28,7 +28,7 @@ def add_book():
         new_book_modified = input("Enter new book modified: ")
 
         new_book = {
-            'ID': generate_unique_user_id(),
+            'ID': generate_id(),
             'Title': new_book_title,
             'Author': new_book_author,
             'Year': new_book_year,

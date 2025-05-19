@@ -9,41 +9,33 @@ logging.basicConfig(
     filemode='w'
 )
 
-file_path_user = 'Bookstore/customer.csv'
-
-
 def generate_id():
-    gen_id()
-    save_users_ids()
-    generate_unique_user_id()
+    def gen_id():
+        return ''.join(random.choices('0123456789', k=4))
 
 
-def gen_id():
-    return ''.join(random.choices('0123456789', k=4))
+    def save_users_ids():
+        existing_ids = set()
+        try:
+            with open('../Bookstore/customer.csv', mode='r', encoding='utf-8') as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    existing_ids.add(row['Id'])
+        except FileNotFoundError:
+            logging.warning(f"File {'../DATABSE/app.log'} not found.")
+        return existing_ids
 
 
-def save_users_ids():
-    existing_ids = set()
-    try:
-        with open(file_path_user, mode='r', encoding='utf-8') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                existing_ids.add(row['Id'])
-    except FileNotFoundError:
-        logging.warning(f"File {file_path_user} not found.")
-    return existing_ids
+    def generate_unique_user_id():
+        existing_ids = save_users_ids()
+        attempt = 0
 
-
-def generate_unique_user_id():
-    existing_ids = save_users_ids()
-    attempt = 0
-
-    while attempt < 10000:
-        new_id = gen_id()
-        if new_id not in existing_ids:
-            return new_id
-        attempt += 1
-
+        while attempt < 10000:
+            new_id = gen_id()
+            if new_id not in existing_ids:
+                return new_id
+            attempt += 1
+    return generate_unique_user_id()
 
 def user_login():
     while True:
@@ -52,7 +44,7 @@ def user_login():
         if username.lower() == 'exit':
             break
 
-        with open(file_path_user, mode='r', encoding='utf-8') as file:
+        with open('../Bookstore/customer.csv', mode='r', encoding='utf-8') as file:
             reader = csv.DictReader(file)
             user_found = False
 
