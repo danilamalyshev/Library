@@ -3,7 +3,7 @@ import os
 import logging
 from utils import generate_id
 from utils import check_username
-from Bookstore.manage_books import delete_book
+from manage_books import delete_book
 
 
 logging.basicConfig(
@@ -13,7 +13,7 @@ logging.basicConfig(
     filemode='w'
 )
 
-file_path_book = "DATABASE/book.csv"
+file_path_book = "Bookstore/book.csv"
 
 def add_user():
     field_names = ['Id', 'Username', 'Name', 'Surname', 'Email', 'Phone', 'Password', 'Administrator']

@@ -9,7 +9,7 @@ logging.basicConfig(
     filemode='w'
 )
 
-file_path_user = 'customer.csv'
+file_path_user = 'Bookstore/customer.csv'
 
 
 def generate_id():
@@ -85,7 +85,7 @@ def check_username():
     def save_usernames():
         existing_usernames = set()
         try:
-            with open('customer.csv', mode='r', encoding='utf-8') as file:
+            with open('Bookstore/customer.csv', mode='r', encoding='utf-8') as file:
                 reader = list(csv.DictReader(file))
                 for row in reader:
                     existing_usernames.add(row['Username'])

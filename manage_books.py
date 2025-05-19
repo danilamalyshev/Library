@@ -1,7 +1,7 @@
 import csv
-from Bookstore.utils import generate_unique_user_id
+from utils import generate_unique_user_id
 
-file_path = "../DATABASE/book.csv"
+file_path = "Bookstore/book.csv"
 
 
 def add_book():
